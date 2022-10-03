@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+import {useState} from "react"
 
 function App() {
+
+  const [apiResponse, setApiResponse]= useState({})
+
+  const apiCall=()=>{
+    axios.request({
+      method:'GET',
+      url: 'https://jsonplaceholder.typicode.com/todos/1'
+    }).then(res=>{setApiResponse(res.data)
+
+    })
+  }
+  var call=apiCall();
+  var str= JSON.stringify(apiResponse);
+  var str=str.split(',');
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>To Do List</h1>
+      <ul>
+        <li>{str[0].substring(1)}</li><input type="checkbox"></input>
+        <li>{str[1]}</li><input type="checkbox"></input>
+        <li>{str[2]}</li><input type="checkbox"></input>
+        <li>{str[3]}</li><input type="checkbox"></input>
+      </ul>
     </div>
   );
 }
